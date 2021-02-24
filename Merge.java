@@ -1,66 +1,59 @@
-class Merge {
-
-    void merge(int arr[], int l, int m, int r) 
-    { 
-        int n1 = m - l + 1; 
-        int n2 = r - m; 
-        int L[] = new int[n1]; 
-        int R[] = new int[n2]; 
-        for (int i = 0; i < n1; ++i) 
-            L[i] = arr[l + i]; 
-        for (int j = 0; j < n2; ++j) 
-            R[j] = arr[m + 1 + j]; 
-        int i = 0, j = 0;
-        int k = l; 
-        while (i < n1 && j < n2) { 
-            if (L[i] <= R[j]) { 
-                arr[k] = L[i]; 
-                i++; 
-            } 
-            else { 
-                arr[k] = R[j]; 
-                j++; 
-            } 
-            k++; 
-        }
-        while (i < n1) { 
-            arr[k] = L[i]; 
-            i++; 
-            k++; 
-        } 
-        while (j < n2) { 
-            arr[k] = R[j]; 
-            j++; 
-            k++; 
-        } 
-    }  
-
-    void sort(int arr[], int l, int r) 
-    { 
-        if (l < r) {  
-            int m = (l + r) / 2;
-            sort(arr, l, m); 
-            sort(arr, m + 1, r);  
-            merge(arr, l, m, r); 
-        } 
-    } 
-  
-  
-    public static void main(String args[]) 
-    { 
-        int arr[] = { 6, 4, 8, 2, 10}; 
-        int n = arr.length; 
-        System.out.println("Given Array"); 
-        for (int i = 0; i < n; ++i) 
-            System.out.print(arr[i] + " "); 
-        System.out.println(); 
-  
-        Merge ob = new Merge(); 
-        ob.sort(arr, 0, arr.length - 1); 
-  
-        System.out.println("\nSorted array"); 
-        for (int i = 0; i < n; ++i) 
-            System.out.print(arr[i] + " "); 
-        System.out.println(); 
-    }
+import java.util.*;
+class Merge 
+{
+	public static void main(String[] args) 
+	{
+		int a[]=new int[20];
+		Scanner s=new Scanner(System.in);
+		int n;
+		System.out.println("enter n value");
+		n=s.nextInt();
+		System.out.println("enter the array elements");
+		for(int i=0;i<n;i++)
+			a[i]=s.nextInt();
+		mergeSort(a,0,n-1);
+		System.out.println("elements ater sorting are");
+		for(int i=0;i<n;i++)
+			System.out.println(a[i]);
+	}
+	static void mergeSort(int a[],int first,int last)
+	{
+		int mid;
+		if(first<last)
+		{
+			mid=(first+last)/2;
+			mergeSort(a,first,mid);
+			mergeSort(a,mid+1,last);
+			merge(a,first,mid,last);
+		}
+}
+	
+static void merge(int a[], int first, int mid, int last)
+	{
+	int b[]=new int[20];
+	int i,j,k;
+	i=first;
+	j=mid+1;
+	k=first;
+	while(i<=mid && j<=last)
+		{
+		if(a[i]<=a[j])
+			{
+			b[k]=a[i];
+			i++;
+			}
+			else
+			{
+				b[k]=a[j];
+				j++;
+			}
+			k++;
+		}
+		while(i<=mid)
+			b[k++]=a[i++];
+		while(j<=last)
+			b[k++]=a[j++];
+		for(i=first;i<=last;i++)
+			a[i]=b[i];
+	}
 }
